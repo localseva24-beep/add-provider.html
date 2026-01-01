@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Service Provider | LocalSeva24</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .box {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    button {
+      background: #0d6efd;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Add Your Service</h2>
+
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="text" id="phone" placeholder="Phone Number">
+  <select id="service">
+    <option value="">Select Service</option>
+    <option>AC Repair</option>
+    <option>Electrician</option>
+    <option>Plumber</option>
+    <option>Carpenter</option>
+  </select>
+  <input type="text" id="city" placeholder="City">
+  <input type="text" id="area" placeholder="Area">
+
+  <button onclick="saveProvider()">Submit</button>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "PASTE_HERE",
+    authDomain: "PASTE_HERE",
+    projectId: "PASTE_HERE",
+    storageBucket: "PASTE_HERE",
+    messagingSenderId: "PASTE_HERE",
+    appId: "PASTE_HERE"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  function saveProvider() {
+    const data = {
+      name: name.value,
+      phone: phone.value,
+      service: service.value,
+      city: city.value,
+      area: area.value,
+      createdAt: new Date()
+    };
+
+    db.collection("providers").add(data)
+      .then(() => alert("Provider added successfully"))
+      .catch(err => alert(err));
+  }
+</script>
+
+</body>
+    </html>
